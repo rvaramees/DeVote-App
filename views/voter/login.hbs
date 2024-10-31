@@ -1,0 +1,70 @@
+<body class="bg-gradient-to-r from-blue-500 to-purple-500 h-screen flex items-center justify-center">
+  <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
+    <form action="/voter/login" method="post">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+        <input 
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+        id="email" 
+        type="email" 
+        value="afsal@gmail.com"
+        placeholder="Enter your email" 
+        name="email" required>
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
+        id="password" 
+        type="password"
+        value="afsal123" 
+        placeholder="Enter your password" 
+        name="password" required>
+      </div>
+
+      {{!-- <div class="mb-6 text-center w-full items-center">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4" type="button" id="startCapture">
+          Start Face Capture
+        </button>
+        <video id="video" width="400" height="240" autoplay class=" border rounded mb-4"></video>
+      </div> --}}
+
+      <div class="flex items-center justify-between">
+        <input type = "submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/voter/register">  
+           Don't have an account? Sign up
+        </a>
+      </div>
+    </form>
+  </div>
+
+  {{!-- <script>
+    const video = document.getElementById('video');
+    const startCaptureButton = document.getElementById('startCapture');
+
+    // Function to start video stream
+    function startVideo() {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          video.srcObject = stream;
+          setTimeout(stopVideo, 5000); // Stop the video after 5 seconds
+        })
+        .catch(err => {
+          console.error("Error accessing camera: " + err);
+        });
+    }
+
+    // Function to stop video stream
+    function stopVideo() {
+      let stream = video.srcObject;
+      let tracks = stream.getTracks();
+      tracks.forEach(track => track.stop());
+      video.srcObject = null;
+    }
+
+    // Start video capture when the button is clicked
+    startCaptureButton.addEventListener('click', startVideo);
+  </script> --}}
+</body>
+
+ 

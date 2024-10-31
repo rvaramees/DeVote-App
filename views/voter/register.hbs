@@ -1,0 +1,41 @@
+<body class="pt-10 bg-gradient-to-r from-blue-500 to-purple-500 flex justify-center items-center h-full">
+  <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold mb-6 text-center">Register</h2>
+    <form id="registrationForm" action="/voter/register" method="post" class="space-y-4">
+      <div>
+        <label for="name" class="block text-sm font-semibold">Name</label>
+        <input type="text" id="name" name="name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Enter your full name">
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-semibold">Email</label>
+        <input type="email" id="email" name="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Enter your email">
+      </div>
+      <div>
+        <label for="password" class="block text-sm font-semibold">Password</label>
+        <input type="password" id="password" name="password" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Enter a new password">
+      </div>
+      <div>
+        <label for="age" class="block text-sm font-semibold">Age</label>
+        <input type="number" id="age" name="age" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Enter your age">
+      </div>
+      <div>
+        <label for="address" class="block text-sm font-semibold">Address</label>
+        <textarea id="address" name="address" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Enter your address"></textarea>
+      </div>
+      <div>
+        <label for="votingDistrict" class="block text-sm font-semibold">Voting District</label>
+        <input type="text" id="votingDistrict" name="votingDistrict" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        placeholder="Enter your district">
+      </div>
+      <div>
+        <input type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">
+      </div>
+    </form>
+  </div>
+ </body>
+</html>
