@@ -7,7 +7,8 @@ const hbs = require('express-handlebars');
 const session = require('express-session')
 
 const indexRouter = require('./routes/index');
-const voterRouter = require('./routes/voter')
+const adminRouter = require('./routes/adminRoute')
+const voterRouter = require('./routes/voterRoute')
 
 const app = express();
 // view engine setup
@@ -36,7 +37,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
-app.use('/voter',voterRouter);
+app.use('/admin', adminRouter);
+app.use('/voter', voterRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

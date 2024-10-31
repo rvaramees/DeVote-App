@@ -6,7 +6,7 @@ exports.getLoginPage = (req, res) => {
     res.render("voter/login");
 };
 // exports.voterLogout = (req, res) => {
-//   req.session.user = null;
+//   
 //   req.session.userAuth = false;
 //   res.redirect("voter/login");
 // };
@@ -51,9 +51,12 @@ exports.postLoginPage = async (req, res, next) => {
 
       if (user.password == password) {
         req.session.user = user
-        req.session.isAuth = true
+        req.session.userAuth = true
         res.redirect('/voter/home')
       } 
+      else{
+        alert("Invalid Credentials!");
+      }
     } catch (error) {
       console.log(error)
       res.render("errors/error", console.log(error));
@@ -66,8 +69,9 @@ exports.postLoginPage = async (req, res, next) => {
 
   exports.postLogout = (req,res,next) => {
 
-    req.session.isAuth = false;
-    console.log("------------> logout------->", req.session);
+    req.session.userAuth = false;
+    req.session.user = null;
+    console.log("Logout....", req.session);
     
     res.redirect("/voter/login");
   }
