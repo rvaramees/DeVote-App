@@ -7,7 +7,7 @@ const adminController = require('../controllers/adminController')
 
 router.get('/login', adminController.getLoginPage);
 router.post('/login', adminController.postLoginPage);
-router.get('/home', verifyAdminAuth , adminController.getHomePage)
-router.post('/logout', verifyAdminAuth, adminController.postLogout)
+router.get('/home' , verifyAdminAuth,adminController.getHomePage)
+router.post('/logout', verifyAdminAuth,adminController.postLogout)
 
 module.exports = router;

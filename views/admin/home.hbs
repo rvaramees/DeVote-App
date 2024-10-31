@@ -1,104 +1,57 @@
-<div class="container mx-auto py-10">
-  <h1 class="text-3xl font-bold mb-5">Admin Dashboard</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-500 to-purple-500">
 
-  <!-- Section to add a new election -->
-  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-8">
-    <h2 class="text-2xl font-bold mb-4">Add New Election</h2>
-    <form action="/admin/addElection" method="POST">
-      <div class="mb-4">
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="electionName"
-        >
-          Election Name
-        </label>
-        <input
-          type="text"
-          id="electionName"
-          name="electionName"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          required
-        />
-      </div>
-      <div class="mb-4">
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="electionDate"
-        >
-          Election Date
-        </label>
-        <input
-          type="date"
-          id="electionDate"
-          name="electionDate"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          required
-        />
-      </div>
-      <button
-        type="submit"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-      >
-        Add Election
-      </button>
-    </form>
-  </div>
+  <!-- Header Section -->
+  <header class="bg-blue-500 shadow-md">
+    <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+      <h1 class="text-2xl font-bold text-white">Admin Dashboard</h1>
+      <nav>
+        <a href="/admin/add-election" class="text-white hover:text-gray-200 px-3">Add Election</a>
+        <a href="/admin/manage-users" class="text-white hover:text-gray-200 px-3">Manage Users</a>
+        <a href="/admin/reports" class="text-white hover:text-gray-200 px-3">Reports</a>
+        <form action="/admin/logout" method="post" autocomplete="off">
+          <button type="submit" class="text-white">Logout</button>
+        </form>
+        
+      </nav>
+    </div>
+  </header>
 
-  <!-- Section to register a new user -->
-  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
-    <h2 class="text-2xl font-bold mb-4">Register New User</h2>
-    <form action="/admin/registerUser" method="POST">
-      <div class="mb-4">
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="userName"
-        >
-          Full Name
-        </label>
-        <input
-          type="text"
-          id="userName"
-          name="userName"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          required
-        />
+  <!-- Main Content Section -->
+  <main class="container mx-auto px-6 py-8">
+    <h2 class="text-3xl font-semibold text-gray-700 mb-6">Welcome, Admin!</h2>
+    
+    <!-- Features Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Add Election Card -->
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h3 class="text-lg font-bold mb-4">Add New Election</h3>
+        <p class="text-gray-600 mb-4">Create a new election and add details for candidates and districts.</p>
+        <a href="/admin/add-election" class="text-blue-500 hover:text-blue-700 font-bold">Go to Add Election</a>
       </div>
-      <div class="mb-4">
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="userEmail"
-        >
-          Email Address
-        </label>
-        <input
-          type="email"
-          id="userEmail"
-          name="userEmail"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          required
-        />
+
+      <!-- Manage Users Card -->
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h3 class="text-lg font-bold mb-4">Manage Registered Users</h3>
+        <p class="text-gray-600 mb-4">View, edit, or remove voters and candidates registered in the system.</p>
+        <a href="/admin/manage-users" class="text-blue-500 hover:text-blue-700 font-bold">Go to Manage Users</a>
       </div>
-      <div class="mb-4">
-        <label
-          class="block text-gray-700 text-sm font-bold mb-2"
-          for="userPassword"
-        >
-          Password
-        </label>
-        <input
-          type="password"
-          id="userPassword"
-          name="userPassword"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          required
-        />
+
+      <!-- Reports Card -->
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h3 class="text-lg font-bold mb-4">View Reports</h3>
+        <p class="text-gray-600 mb-4">Access election reports and voting analytics for ongoing and past elections.</p>
+        <a href="/admin/reports" class="text-blue-500 hover:text-blue-700 font-bold">Go to Reports</a>
       </div>
-      <button
-        type="submit"
-        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-      >
-        Register User
-      </button>
-    </form>
-  </div>
-</div>
+    </div>
+  </main>
+
+</body>
+</html>

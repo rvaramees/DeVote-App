@@ -9,13 +9,9 @@ module.exports = {
             console.log(req.session);
             res.redirect('/admin/login');
         }
-    }
-}
-
-module.exports = {
+    },
     verifyUserAuth : (req,res,next) => {
         if(req.session.userAuth) {
-
             console.log("Session started");
             console.log(req.session);
             next()
