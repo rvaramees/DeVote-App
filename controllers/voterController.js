@@ -26,7 +26,7 @@ exports.postRegisterPage = async (req, res) => {
       address : req.body.address,
       blockchainID : ethers.encodeBytes32String(req.body.password),
       votingDistrict : req.body.votingDistrict,
-      registered : true,
+      registered : false,
       voted : false,
       createdAt : new Date()
     };
