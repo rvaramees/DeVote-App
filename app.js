@@ -5,10 +5,15 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const hbs = require('express-handlebars');
 const session = require('express-session')
+const PROVIDER_URL = process.env.PROVIDER_URL;
+const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/adminRoute')
 const voterRouter = require('./routes/voterRoute')
+
+
 
 const app = express();
 // view engine setup

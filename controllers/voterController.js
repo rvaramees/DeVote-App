@@ -75,3 +75,6 @@ exports.postLoginPage = async (req, res, next) => {
     
     res.redirect("/voter/login");
   }
+  exports.getVotingPage = async(req, res, next) => {
+    res.render('voter/votingPage');
+  }

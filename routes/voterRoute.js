@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { verifyUserAuth } = require('../middleware/auth')
+const { verifyUserAuth, verifyAdminAuth } = require('../middleware/auth')
 const voterController = require('../controllers/voterController')
 
 
@@ -11,5 +11,6 @@ router.get('/register', voterController.getRegisterPage);
 router.post('/register',voterController.postRegisterPage);
 router.get('/home', verifyUserAuth , voterController.getHomePage)
 router.post('/logout', verifyUserAuth ,voterController.postLogout)
+router.get('/votingPage', verifyUserAuth, voterController.getVotingPage)
 
 module.exports = router;
