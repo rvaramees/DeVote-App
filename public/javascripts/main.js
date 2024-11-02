@@ -1,5 +1,6 @@
 let WALLET_CONNECTED = "";
-let contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+let contractAddress = "0xfEEE29DC8d5b914469489bb8545922a54f897371";
+// import {abi} from '../../artifacts/contracts/Voting.sol/Voting.json';
 let contractAbi = [
     {
       "inputs": [
@@ -56,7 +57,7 @@ let contractAbi = [
     },
     {
       "inputs": [],
-      "name": "getAllVotesOfCandiates",
+      "name": "getAllVotesOfCandidates",
       "outputs": [
         {
           "components": [
@@ -100,7 +101,7 @@ let contractAbi = [
           "type": "uint256"
         }
       ],
-      "name": "getVotesOfCandiate",
+      "name": "getVotesOfCandidate",
       "outputs": [
         {
           "internalType": "uint256",
@@ -198,7 +199,7 @@ const addVote = async() => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
-        const contractInstance = new ethers.Contract(contractAddress, contractAbi, signer);
+        const contractInstance = new ethers.Contract(contractAddress, abi, signer);
         var cand = document.getElementById("cand");
         cand.innerHTML = "Please wait, adding a vote in the smart contract";
         const tx = await contractInstance.vote(name.value);
@@ -232,14 +233,15 @@ const voteStatus = async() => {
 }
 
 const getAllCandidates = async() => {
-    if(WALLET_CONNECTED != 0) {
+  console.log("Getiing...") ; 
+  if(WALLET_CONNECTED != 0) {
         var p3 = document.getElementById("p3");
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
         const contractInstance = new ethers.Contract(contractAddress, contractAbi, signer);
         p3.innerHTML = "Please wait, getting all the candidates from the voting smart contract";
-        var candidates = await contractInstance.getAllVotesOfCandiates();
+        var candidates = await contractInstance.getAllVotesOfCandidates();
         console.log(candidates);
         var table = document.getElementById("myTable");
 
