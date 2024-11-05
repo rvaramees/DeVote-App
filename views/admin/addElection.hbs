@@ -1,0 +1,117 @@
+<body class="bg-gradient-to-r from-white to-blue-400 p-6">
+  <div class="max-w-2xl mx-auto bg-white p-8 rounded-md shadow-md">
+    <h1 class="text-2xl font-bold mb-6 text-gray-800">Add New Election</h1>
+
+    <form id="addElection" name="addElection" action="/admin/addElection" method="POST">
+      <!-- Election Title -->
+      <div class="mb-4">
+        <label class="block text-gray-700 font-semibold mb-2">Election Title</label>
+        <input id="title" type="text" name="title" class="w-full p-3 border rounded-md" placeholder="Election Title" required>
+      </div>
+
+      <!-- Election Description -->
+      <div class="mb-4">
+        <label class="block text-gray-700 font-semibold mb-2">Description</label>
+        <textarea id="description" name="description" class="w-full p-3 border rounded-md" placeholder="Brief description of the election" required></textarea>
+      </div>
+
+      <!-- Start Date -->
+      <div class="mb-4">
+        <label class="block text-gray-700 font-semibold mb-2">Start Date</label>
+        <input id="startDate" type="date" name="startDate" class="w-full p-3 border rounded-md" required>
+      </div>
+
+      <!-- End Date -->
+      <div class="mb-4">
+        <label class="block text-gray-700 font-semibold mb-2">End Date</label>
+        <input id="endDate" type="date" name="endDate" class="w-full p-3 border rounded-md" required>
+      </div>
+
+      <!-- Candidates Section -->
+      <div id="candidates" class="mb-4">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Candidates</h2>
+
+        <!-- Candidate Template -->
+        {{!-- <div id="candidate-template" class="hidden">
+          <div class="flex items-center gap-4 mb-4 candidate-entry">
+            <input name="candidate-name" type="text" class="w-1/2 p-2 border rounded-md candidate-name" placeholder="Candidate Name" required>
+            <button type="button" class="remove-candidate text-red-600 font-bold px-2">x</button>
+          </div>
+        </div> --}}
+        <fieldset id="candidates-container">
+    <div class="candidate-group">
+      <input type="text" name="candidate-name" placeholder="Candidate Name" class="input-class candidate-name" required>
+    </div>
+  </fieldset>
+
+        <!-- Dynamic Candidates List -->
+        <div id="candidates-list">
+          <!-- Candidates will be added here -->
+        </div>
+
+        <!-- Add Candidate Button -->
+        <button type="button" id="add-candidate" class="mt-4 bg-blue-500 text-white font-semibold py-2 px-4 rounded-md">
+          Add Candidate
+        </button>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-6">
+        <button type="submit" class="w-full bg-green-500 text-white font-semibold py-3 rounded-md">Create Election</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("add-candidate").addEventListener("click", function () {
+  const container = document.getElementById("candidates-container");
+  const candidateGroup = document.createElement("div");
+  candidateGroup.classList.add("candidate-group");
+
+  candidateGroup.innerHTML = `
+    <input type="text" name="candidate-name" placeholder="Candidate Name" class="input-class candidate-name" required>`;
+  
+  container.appendChild(candidateGroup);
+});
+    // Add candidate functionality
+    
+const form = document.getElementById('addElection'); 
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    // Collect form data
+    const title = form.querySelector("title").value;
+    const description = form.querySelector("description").value;
+    const startDate = form.querySelector("startDate").value;
+    const endDate = form.querySelector("endDate").value;
+
+    // Collect candidate data
+    const candidateNames = Array.from(document.querySelectorAll('.candidate-name'));
+    const candidates = candidateNames.map((name, index) => ({
+      name: name.value,
+    }));
+
+    // Send data to the server
+    const response = await fetch('/admin/addElection', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        startDate,
+        endDate,
+        candidates
+      })
+    });
+
+    if (response.ok) {
+      // Redirect to a new page or show a success message
+      window.location.href = '/admin/home';
+    } else {
+      console.error('Failed to submit election');
+    }
+  });
+  </script>
+</body>
