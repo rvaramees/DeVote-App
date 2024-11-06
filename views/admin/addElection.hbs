@@ -21,12 +21,6 @@
         <input id="startDate" type="date" name="startDate" class="w-full p-3 border rounded-md" required>
       </div>
 
-      <!-- End Date -->
-      <div class="mb-4">
-        <label class="block text-gray-700 font-semibold mb-2">End Date</label>
-        <input id="endDate" type="date" name="endDate" class="w-full p-3 border rounded-md" required>
-      </div>
-
       <!-- Candidates Section -->
       <div id="candidates" class="mb-4">
         <h2 class="text-xl font-semibold mb-4 text-gray-800">Candidates</h2>
@@ -38,9 +32,10 @@
             <button type="button" class="remove-candidate text-red-600 font-bold px-2">x</button>
           </div>
         </div> --}}
-        <fieldset id="candidates-container">
+    <fieldset id="candidates-container">
     <div class="candidate-group">
-      <input type="text" name="candidate-name" placeholder="Candidate Name" class="input-class candidate-name" required>
+      <input type="text" name="candidate-name" placeholder="Candidate Name" class="px-4 py-2 border rounded-md mt-1 mr-2 candidate-name" required>
+      <input type = "text" name="candidate-party" placeholder = "Candidate Party" class="px-4 py-2 border rounded-md mt-1 mr-2 candidate-party" required>
     </div>
   </fieldset>
 
@@ -63,34 +58,33 @@
   </div>
 
   <script>
-    document.getElementById("add-candidate").addEventListener("click", function () {
+document.getElementById("add-candidate").addEventListener("click", function () {
   const container = document.getElementById("candidates-container");
   const candidateGroup = document.createElement("div");
   candidateGroup.classList.add("candidate-group");
-
-  candidateGroup.innerHTML = `
-    <input type="text" name="candidate-name" placeholder="Candidate Name" class="input-class candidate-name" required>`;
-  
+  candidateGroup.innerHTML = 
+  `<input type = "text" name ="candidate-name" placeholder ="Candidate Name" class="px-4 py-2 border rounded-md mt-1 mr-2 candidate-name" required>
+  <input type = "text" name="candidate-party" placeholder = "Candidate Party" class="px-4 py-2 border rounded-md mt-1 mr-2 candidate-party" required>`;
   container.appendChild(candidateGroup);
 });
-    // Add candidate functionality
+// Add candidate functionality
     
 const form = document.getElementById('addElection'); 
 form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     // Collect form data
-    const title = form.querySelector("title").value;
-    const description = form.querySelector("description").value;
-    const startDate = form.querySelector("startDate").value;
-    const endDate = form.querySelector("endDate").value;
-
+    const title = form.querySelector("#title").value;
+    const description = form.querySelector("#description").value;
+    const startDate = form.querySelector("#startDate").value;
     // Collect candidate data
-    const candidateNames = Array.from(document.querySelectorAll('.candidate-name'));
+    const candidateNames = Array.from(form.querySelectorAll('.candidate-name'));
+    const candidateParties = Array.from(form.querySelectorAll('.candidate-party'));
     const candidates = candidateNames.map((name, index) => ({
       name: name.value,
+      party : candidateParties[index].value
     }));
-
+    console.log(candidates);
     // Send data to the server
     const response = await fetch('/admin/addElection', {
       method: 'POST',
@@ -101,14 +95,12 @@ form.addEventListener('submit', async (event) => {
         title,
         description,
         startDate,
-        endDate,
         candidates
       })
     });
 
     if (response.ok) {
-      // Redirect to a new page or show a success message
-      window.location.href = '/admin/home';
+      console.log("Success")// Redirect to a new page or show a success message
     } else {
       console.error('Failed to submit election');
     }

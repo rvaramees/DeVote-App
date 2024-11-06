@@ -1,5 +1,5 @@
 let WALLET_CONNECTED = "";
-let contractAddress = "0xfEEE29DC8d5b914469489bb8545922a54f897371";
+let contractAddress = "0x0Aa39bf90A8145a65167BAF56790c32C78A8eed5";
 // import {abi} from '../../artifacts/contracts/Voting.sol/Voting.json';
 let contractAbi = [
     {
@@ -199,7 +199,7 @@ const addVote = async() => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
-        const contractInstance = new ethers.Contract(contractAddress, abi, signer);
+        const contractInstance = new ethers.Contract(contractAddress, contractAbi, signer);
         var cand = document.getElementById("cand");
         cand.innerHTML = "Please wait, adding a vote in the smart contract";
         const tx = await contractInstance.vote(name.value);
@@ -232,34 +232,34 @@ const voteStatus = async() => {
     }
 }
 
-const getAllCandidates = async() => {
-  console.log("Getiing...") ; 
-  if(WALLET_CONNECTED != 0) {
-        var p3 = document.getElementById("p3");
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send("eth_requestAccounts", []);
-        const signer = provider.getSigner();
-        const contractInstance = new ethers.Contract(contractAddress, contractAbi, signer);
-        p3.innerHTML = "Please wait, getting all the candidates from the voting smart contract";
-        var candidates = await contractInstance.getAllVotesOfCandidates();
-        console.log(candidates);
-        var table = document.getElementById("myTable");
+// const getAllCandidates = async() => {
+//   console.log("Getiing...") ; 
+//   if(WALLET_CONNECTED != 0) {
+//         var p3 = document.getElementById("p3");
+//         const provider = new ethers.providers.Web3Provider(window.ethereum);
+//         await provider.send("eth_requestAccounts", []);
+//         const signer = provider.getSigner();
+//         const contractInstance = new ethers.Contract(contractAddress, contractAbi, signer);
+//         p3.innerHTML = "Please wait, getting all the candidates from the voting smart contract";
+//         var candidates = await contractInstance.getAllVotesOfCandidates();
+//         console.log(candidates);
+//         var table = document.getElementById("myTable");
 
-        for (let i = 0; i < candidates.length; i++) {
-            var row = table.insertRow();
-            var idCell = row.insertCell();
-            var descCell = row.insertCell();
-            var statusCell = row.insertCell();
+//         for (let i = 0; i < candidates.length; i++) {
+//             var row = table.insertRow();
+//             var idCell = row.insertCell();
+//             var descCell = row.insertCell();
+//             var statusCell = row.insertCell();
 
-            idCell.innerHTML = i;
-            descCell.innerHTML = candidates[i].name;
-            statusCell.innerHTML = candidates[i].voteCount;
-        }
+//             idCell.innerHTML = i;
+//             descCell.innerHTML = candidates[i].name;
+//             statusCell.innerHTML = candidates[i].voteCount;
+//         }
 
-        p3.innerHTML = "The tasks are updated"
-    }
-    else {
-        var p3 = document.getElementById("p3");
-        p3.innerHTML = "Please connect metamask first";
-    }
-}
+//         p3.innerHTML = "The tasks are updated"
+//     }
+//     else {
+//         var p3 = document.getElementById("p3");
+//         p3.innerHTML = "Please connect metamask first";
+//     }
+// }

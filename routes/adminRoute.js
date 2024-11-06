@@ -12,7 +12,10 @@ router.get('/home' , verifyAdminAuth,adminController.getHomePage);
 router.post('/logout', verifyAdminAuth,adminController.postLogout);
 router.post('/manageVoters', verifyAdminAuth, adminController.manageVoters);
 router.get('/addElection', verifyAdminAuth, adminController.getAddElection);
-router.get('/addCandidate', verifyAdminAuth, adminController.getAddCandidate);
-router.post('/addCandidate',verifyAdminAuth, adminController.postAddCandidate);
+// router.get('/addCandidate', verifyAdminAuth, adminController.getAddCandidate);
+// router.post('/addCandidate',verifyAdminAuth, adminController.postAddCandidate);
+router.post('/viewCandidates', verifyAdminAuth, adminController.postViewCandidates);
+router.post('/addElection', verifyAdminAuth, adminController.postAddElection);
+router.post('/startElection', verifyAdminAuth, adminController.startElection);
 
 module.exports = router;

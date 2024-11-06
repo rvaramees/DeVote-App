@@ -1,5 +1,6 @@
 require("dotenv").config();
 const voter = require("../models/voter");
+const election = require("../models/election")
 // const election = require('../models/election');
 // const { getHomePage } = require('./voterController');
 const { ethers } = require("hardhat");
@@ -14,6 +15,24 @@ const contractInstance = new ethers.Contract(
 
 require("../config/dbConnection");
 
+exports.postAddElection = async (req, res, next) => {
+  try {
+    const newElection = {
+      title: req.body.title,
+      description: req.body.description,
+      startDate: new Date(req.body.startDate),
+      candidates: req.body.candidates,  // Ensure candidates are in the correct format for your schema
+    };
+    console.log(req.body.candidates);
+    
+    const Election = new election(newElection);
+    const savedElection = await Election.save();
+    console.log('Election added with ID:', savedElection._id);  // Redirect to an appropriate page
+  } catch (err) {
+    console.error('Error adding election:', err);
+    res.status(500).send("Error adding election");
+  }
+};
 exports.getAddCandidate = async (req, res, next) => {
   res.render("admin/addCandidates");
   // async function connectMetamask() {
@@ -40,16 +59,16 @@ exports.getAddCandidate = async (req, res, next) => {
     //   res.render("admin/addCandidates", {
     //     admin: req.session.admin,
     //     candidates: candidates,
+    //   res.send("Voting is finished");
     //   });
     // } else {
-    //   res.send("Voting is finished");
-    // }
+      // }
 };
 exports.postViewCandidates = async(req, res, next) => {
   console.log("Getting candidates");
   const candidates = await contractInstance.getAllVotesOfCandidates();
   console.log(candidates);
-  res.render('admin/viewCandidatePage',{candidates : candidates});
+  res.render('admin/viewCandidates',{candidates : candidates});
 }
 exports.postAddCandidate = async (req, res, next) => {
   const votingStatus = await contractInstance.getVotingStatus();
@@ -113,28 +132,12 @@ exports.manageVoters = async (req, res, next) => {
 exports.getAddElection = async (req, res, next) => {
   res.render("admin/addElection");
 };
-exports.postAddElection = async (req, res, next) => {
-  try {
-    const newElection = {
-      title: req.body.title,
-      description: req.body.description,
-      startDate: new Date(req.body.startDate),
-      endDate: new Date(req.body.endDate),
-      candidates: req.body.candidate-name,  // Ensure candidates are in the correct format for your schema
-    };
-    
-    const election = new Election(newElection);
-    const savedElection = await election.save();
-    console.log('Election added with ID:', savedElection._id);
-    res.redirect('/admin/home');  // Redirect to an appropriate page
-  } catch (err) {
-    console.error('Error adding election:', err);
-    res.status(500).send("Error adding election");
-  }
-};
 
 exports.postAnnounceResults = async (req, res, next) => {
   const winner = req.body.data;
   // console.log(winner.name);
   // res.render('admin/showWinner', {winner : winner});
 };
+exports.startElection = async(req, res, next) => {
+  res.render('admin/enterElection');
+}
