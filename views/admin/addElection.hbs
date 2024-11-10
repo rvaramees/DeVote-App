@@ -56,6 +56,9 @@
       </div>
     </form>
   </div>
+  <a href="/admin/home"><button class="px-4 py-2 bg-blue-400 text-gray-700 font-semibold rounded-md hover:bg-blue-600 hover:text-gray-900 transition-colors duration-300 shadow-md">
+    Go Back
+</button></a>
 
   <script>
 document.getElementById("add-candidate").addEventListener("click", function () {
@@ -100,7 +103,8 @@ form.addEventListener('submit', async (event) => {
     });
 
     if (response.ok) {
-      console.log("Success")// Redirect to a new page or show a success message
+      console.log("Success")
+      window.href('/admin/home')// Redirect to a new page or show a success message
     } else {
       console.error('Failed to submit election');
     }

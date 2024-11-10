@@ -1,5 +1,5 @@
 let WALLET_CONNECTED = "";
-let contractAddress = "0x0Aa39bf90A8145a65167BAF56790c32C78A8eed5";
+let contractAddress = "0x1B8749ADb0a56D220A4a8b4e08C879dF6804527c";
 // import {abi} from '../../artifacts/contracts/Voting.sol/Voting.json';
 let contractAbi = [
     {

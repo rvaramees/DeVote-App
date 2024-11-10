@@ -12,5 +12,9 @@ router.post('/register',voterController.postRegisterPage);
 router.get('/home', verifyUserAuth , voterController.getHomePage)
 router.post('/logout', verifyUserAuth ,voterController.postLogout)
 router.get('/votingPage', verifyUserAuth, voterController.getVotingPage)
+router.get('/results', verifyUserAuth, voterController.getResultsPage);
+
+// Route to handle photo upload
+
 
 module.exports = router;

@@ -1,4 +1,4 @@
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="bg-gradient-to-r from-white to-blue-400 flex items-center justify-center min-h-screen">
     <div class="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
         <h2 class="text-2xl font-bold text-center text-gray-700 py-4 border-b border-gray-200">Election Results</h2>
         <div class="overflow-x-auto">
@@ -6,6 +6,7 @@
                 <thead class="bg-green-600 text-white">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Candidate Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Party</th>
                         <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Vote Count</th>
                     </tr>
                 </thead>
@@ -13,40 +14,48 @@
                     {{#each candidates}}
                     <tr class="hover:bg-gray-100">
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{this.name}}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 vote-count">{{this.voteCount}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{this.party}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{this.voteCount}}</td>
                     </tr>
                     {{/each}}
                 </tbody>
             </table>
         </div>
         <div class="text-center py-4">
-            <button onclick="findWinner()" class="bg-blue-500 text-white px-4 py-2 rounded">Find Winner</button>
+            <button id="findWinner" class="bg-blue-500 text-white px-4 py-2 rounded">Find Winner</button>
         </div>
         <div id="winnerDisplay" class="bg-gray-100 p-4 text-center hidden">
             <h3 class="text-xl font-bold text-gray-700 mt-4">Winner</h3>
-            <p id="winnerInfo" class="text-lg text-gray-600 mt-2"></p>
+            <input type="text" id="winnerInfo" class="text-lg text-gray-600 mt-2" readonly>
+        </div>
+        <div class="text-center p-4">
+            <form id="post-results" action="/admin/postResults" method="POST">
+                <input type="hidden" name="winnerInformation" id="hiddenWinnerInfo" />
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Post Election Results</button>
+            </form>
         </div>
     </div>
 
     <script>
-        function findWinner() {
+        document.getElementById('findWinner').addEventListener("click", function () {
             const rows = document.querySelectorAll("#candidatesTable tbody tr");
-            let winner = { name: '',  voteCount: -1 };
+            let winner = { name: '', party: '', voteCount: -1 };
 
             rows.forEach(row => {
                 const name = row.cells[0].innerText;
-                const voteCount = parseInt(row.cells[1].innerText, 10);
+                const party = row.cells[1].innerText;
+                const voteCount = parseInt(row.cells[2].innerText, 10);
 
                 if (voteCount > winner.voteCount) {
-                    winner = { name, voteCount };
+                    winner = { name, party, voteCount };
                 }
             });
 
-            // Display winner information
+            // Display winner information and update hidden input field
             document.getElementById("winnerDisplay").classList.remove("hidden");
-            document.getElementById("winnerInfo").innerText = 
-                `${winner.name} with ${winner.voteCount} votes!`;
-        }
+            const winnerInformation = `${winner.name} from ${winner.party} with ${winner.voteCount} votes!`;
+            document.getElementById("winnerInfo").value = winnerInformation;
+            document.getElementById("hiddenWinnerInfo").value = winnerInformation;  // Update hidden input for form submission
+        });
     </script>
 </body>
-</html>

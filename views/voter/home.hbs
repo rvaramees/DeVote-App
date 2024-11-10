@@ -1,16 +1,15 @@
-<body class="bg-gradient-to-r from-blue-500 to-purple-500 min-h-screen flex flex-col items-center justify-center">
+<body class="bg-gradient-to-r from-white to-blue-400  p-6">
   <!-- Navbar -->
-  <header class="w-full bg-blue-600 text-white py-4">
-    <div class="container mx-auto px-4 pl-12 flex justify-between items-center">
+  <header class="w-full bg-blue-600 text-white rounded-lg">
+    <div class="container mx-auto px-6 py-12 flex justify-between items-center">
       <h1 class="text-2xl font-bold">DeVote</h1>
       <nav>
-        <a href="#" class="hover:underline px-3">User : {{userDetails.name}}</a>
-        <a href="#upcoming-elections" class="hover:underline px-3">Upcoming Elections</a>
-        <a href="#profile" class="hover:underline px-3">Profile</a>
+        <div class="flex">
+        <a href="#" class="hover:underline px-7">User : {{userDetails.name}}</a>
         <form action="/voter/logout" method="post" autocomplete="off">
-          <button type="submit">Logout</button>
+          <button class="px-5" type="submit">Logout</button>
         </form>
-        
+        </div>
       </nav>
     </div>
   </header>
@@ -24,21 +23,43 @@
   <!-- Upcoming Elections Section -->
   <section id="upcoming-elections" class="w-full max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
     <h3 class="text-2xl font-semibold text-gray-800 mb-4">Upcoming Elections</h3>
+    {{#if upcomingElections}}
+    <ul class="space-y-4">
+      <!-- Sample Election Entry -->
+      {{#each upcomingElections}}
+      <li class="border border-gray-300 p-4 rounded-lg">
+        <div class="flex justify-between items-center">
+          <div>
+            <h4 class="text-lg font-semibold text-gray-800">{{this.title}}</h4>
+            <p class="text-gray-600">{{this.startDate}}</p>
+          </div>
+          <a href="/elections/1" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">View Candidates</a>
+        </div>
+      </li>
+      {{/each}}
+      <!-- Additional elections can be added dynamically here -->
+    </ul>
+    {{/if}}
+  </section>
+
+<section id="upcoming-elections" class="w-full max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
+    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Active Elections</h3>
+   {{#if activeElections}}
     <ul class="space-y-4">
       <!-- Sample Election Entry -->
       <li class="border border-gray-300 p-4 rounded-lg">
         <div class="flex justify-between items-center">
           <div>
-            <h4 class="text-lg font-semibold text-gray-800">Local Council Election</h4>
+            <h4 class="text-lg font-semibold text-gray-800">{{activeElections.title}}</h4>
             <p class="text-gray-600">Date: April 15, 2025</p>
           </div>
-          <a href="/elections/1" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">View Candidates</a>
+          <a href="/voter/votingPage" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Vote Now</a>
         </div>
       </li>
       <!-- Additional elections can be added dynamically here -->
     </ul>
+    {{/if}}
   </section>
-
   <!-- Profile Section -->
   <section id="profile" class="w-full max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
     <h3 class="text-2xl font-semibold text-gray-800 mb-4">Your Profile</h3>

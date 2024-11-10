@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gradient-to-r from-blue-500 to-purple-500">
+<body class="bg-gradient-to-r from-white to-blue-400 p-6">
 
   <!-- Header Section -->
-  <header class="bg-blue-500 shadow-md">
-    <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+  <header class="bg-blue-500 shadow-md rounded-lg">
+    <div class="container mx-auto px-6 py-12 flex items-center justify-between">
       <h1 class="text-2xl font-bold text-white">Admin Dashboard</h1>
       <nav>
-        <a href="/admin/addElection" class="text-white hover:text-gray-200 px-3">Add Election</a>
-        <form action="/admin/manageVoters" method="post" autocomplete="off">
-          <button type="submit" class="text-white">Manage voters</button>
+        <div class="flex">
+        <a href="/admin/addElection" class="text-white hover:text-gray-400 px-5">Add Election</a>
+        <form action="/admin/manageVoters" method="get" autocomplete="off">
+          <button type="submit" class="text-white hover:text-gray-400">Manage voters</button>
         </form>
-        <a href="/admin/reports" class="text-white hover:text-gray-200 px-3">Reports</a>
+        <a href="/admin/reports" class="text-white hover:text-gray-400 px-5">Reports</a>
         <form action="/admin/logout" method="post" autocomplete="off">
-          <button type="submit" class="text-white">Logout</button>
+          <button type="submit" class="text-white  hover:text-gray-400">Logout</button>
         </form>
-        
+        </div>
       </nav>
     </div>
   </header>
@@ -41,26 +34,54 @@
 
       <!-- Manage Users Card -->
       <div class="bg-white p-6 rounded-lg shadow-lg">
-        <h3 class="text-lg font-bold mb-4">Manage Registered Users</h3>
-        <p class="text-gray-600 mb-4">View, edit, or remove voters and candidates registered in the system.</p>
-        <a href="/admin/manage-users" class="text-blue-500 hover:text-blue-700 font-bold">Go to Manage Users</a>
+        <h3 class="text-lg font-bold mb-4">Register Users</h3>
+        <p class="text-gray-600 mb-4">View, Register, or Remove voters </p>
+        <a href="/admin/manageVoters" class="text-blue-500 hover:text-blue-700 font-bold">Go to Manage Users</a>
       </div>
 
       <!-- Reports Card -->
       <div class="bg-white p-6 rounded-lg shadow-lg">
         <h3 class="text-lg font-bold mb-4">View Reports</h3>
         <p class="text-gray-600 mb-4">Access election reports and voting analytics for ongoing and past elections.</p>
-        <a href="/admin/reports" class="text-blue-500 hover:text-blue-700 font-bold">Go to Reports</a>
+        <a href="/admin/getResults" class="text-blue-500 hover:text-blue-700 font-bold">Go to Reports</a>
       </div>
       <div class="bg-white p-6 rounded-lg shadow-lg">
         <h3 class="text-lg font-bold mb-4">Start Election</h3>
         <p class="text-gray-600 mb-4"></p>
+        {{#if elections}}
         <form action="/admin/startElection" method="post">
+        {{#each elections}}
+          <label class="p-3  flex items-center space-x-2 cursor-pointer">
+        <input value="{{this._id}}" type="radio" name="election" class="form-radio h-4 w-4 text-blue-600 border-gray-300 focus:ring-2 focus:ring-offset-1 focus:ring-blue-500" />
+        <span class="text-gray-800">{{this.title}}</span>
+        </label>
+        {{/each}}
         <input type="submit" class="text-blue-500 hover:text-blue-700 font-bold" value="Deploy">
         </form>
+        {{else}}<p class="text-gray-600 mb-4">No elections are added.</p>
+        {{/if}}
+      </div>
+
+
+      
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h3 class="text-lg font-bold mb-4">Start Election</h3>
+        <p class="text-gray-600 mb-4"></p>
+        {{#if activeElections}}
+         <p class="text-gray-800">{{activeElections.title}}</span>
+        </label>
+        <form action="/admin/startElection" method="get"> 
+        <input type="submit" class="text-blue-500 hover:text-blue-700 font-bold" value="Go to Election Page">
+        </form>
+        {{else}}<p class="text-gray-600 mb-4">No Active Elections.</p>
+        {{/if}}
       </div>
     </div>
   </main>
-
+    <!-- Footer -->
+  <footer class="w-full bg-gray-800 text-white py-4 mt-8">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; 2024 DeVote. All Rights Reserved.</p>
+    </div>
+  </footer>
 </body>
-</html>
